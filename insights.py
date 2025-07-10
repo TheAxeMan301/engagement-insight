@@ -49,8 +49,37 @@ def process_array(comment_array):
 
 
 def main():
-    comment_array = parse_csv("./engagements.csv")
+    all_comments_array = parse_csv("./engagements.csv")
     print("For all posts")
-    process_array(comment_array)
+    print(f"{len(all_comments_array)} comments")
+    process_array(all_comments_array)
+    print("\n\n")
+
+    # Break down by post
+    posts_dict = {}
+    for entry in all_comments_array:
+        media_id = entry["media_id"]
+        media_caption = entry["media_caption"]
+        post_entry = posts_dict.setdefault(media_id, {
+            "media_caption": media_caption,
+            "count": 0,
+        })
+        post_entry["count"] += 1
+
+    # List of each media_id
+    posts_list = list(posts_dict.keys())
+    posts_list = sorted(posts_list, key=lambda media_id: -posts_dict[media_id]["count"])
+
+    for media_id in posts_list:
+        media_comments = [entry for entry in all_comments_array if entry["media_id"] == media_id]
+        print("Post text")
+        print(posts_dict[media_id]["media_caption"])
+        if (len(media_comments) > 0):
+            print(f"{len(media_comments)} comments")
+            process_array(media_comments)
+        else:
+            print("No comments on this post")
+        print("\n\n")
+
 
 main()

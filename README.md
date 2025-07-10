@@ -7,5 +7,12 @@ A python 3 script that reports the top 100 words in the dataset comments. The da
 ## Example
 `python insights.py`
 
-## Future work
+## Output
+The output starts with the top 100 words in all posts.
 
+Then it goes through each post in order of most commented posts. The number of comments and top 100 words or emojis are displayed. 
+
+## Extending
+* Organizing words into positive or negative to get an overall vibe on the results
+* Looking at the timestamp to measure engagement
+* Looking at hashtags referenced in posts.
